@@ -23,6 +23,13 @@
     border: 2px solid #000;
   }
   
+  .result {
+    font-size: 22px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 10px;
+  }
+  
   .buttons {
     display: grid;
     grid-template-columns: repeat(4, 1fr);

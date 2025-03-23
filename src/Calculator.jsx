@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import "./Calculator.css"; // For styling
+import "./Calculator.css"; // Import CSS for styling
 
 const Calculator = () => {
   const [expression, setExpression] = useState("");
+  const [result, setResult] = useState("");
 
   const handleClick = (value) => {
     setExpression((prev) => prev + value);
@@ -10,24 +11,19 @@ const Calculator = () => {
 
   const clearExpression = () => {
     setExpression("");
+    setResult("");
   };
 
   const calculateResult = () => {
     try {
-      if (!expression) {
-        setExpression("Error");
+      if (!expression.trim()) {
+        setResult("Error"); // Handle case when '=' is clicked without input
         return;
       }
-      let result = eval(expression);
-      if (result === Infinity) {
-        setExpression("Infinity");
-      } else if (isNaN(result)) {
-        setExpression("NaN");
-      } else {
-        setExpression(result.toString());
-      }
+      let res = eval(expression);
+      setResult(res);
     } catch {
-      setExpression("Error");
+      setResult("Error");
     }
   };
 
@@ -35,6 +31,7 @@ const Calculator = () => {
     <div className="calculator">
       <h1>React Calculator</h1>
       <input type="text" value={expression} readOnly />
+      <div className="result">{result !== "" ? result : ""}</div>
       <div className="buttons">
         {["7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/"].map(
           (char) => (
